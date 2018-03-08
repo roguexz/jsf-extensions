@@ -1,0 +1,56 @@
+# ----------------
+# Build Artifacts
+# ----------------
+
+*.class
+*.war
+*.ear
+*.jar
+temp_*
+tmp_*
+*.log*
+target/
+*_cache
+.tmp/
+
+# ----------------------
+# Intellij Project Files
+# ----------------------
+.idea/
+*.iml
+out/
+
+# ----------------------
+# Gradle Artifacts
+# ----------------------
+.gradle/
+tmp/
+
+# ---------------------
+# Eclipse Project Files
+# ---------------------
+.classpath
+.settings
+.project
+
+# -------------------
+# OS X Specific Files
+# -------------------
+.DS_Store
+
+# ------------------------------
+# Maven Release Plugin Artifacts
+# ------------------------------
+release.properties
+*.versionsBackup
+*.bak
+pom.xml.releaseBackup
+pom.xml.tag
+pom.xml.next
+pom.xml.versionsBackup
+
+# ----------
+# Exceptions
+# ----------
+
+!/gradle/wrapper/gradle-wrapper.jar
