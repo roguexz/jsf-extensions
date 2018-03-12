@@ -17,15 +17,20 @@
 group = 'io.rogue.ee'
 version = '0.0.0'
 
-repositories {
-    mavenCentral()
-}
+allprojects {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'http://repository.jboss.org/nexus/content/groups/public'
+        }
+    }
 
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'findbugs'
-apply plugin: 'pmd'
-
-dependencies {
-    compileOnly 'javax:javaee-api:7.0'
+    buildscript {
+        repositories {
+            mavenCentral()
+            maven {
+                url 'http://repository.jboss.org/nexus/content/groups/public'
+            }
+        }
+    }
 }

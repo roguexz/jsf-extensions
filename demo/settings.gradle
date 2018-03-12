@@ -14,18 +14,10 @@
  * limitations under the License.
  */
 
-group = 'io.rogue.ee'
-version = '0.0.0'
+// Turn on Gradle 5 feature
+enableFeaturePreview('IMPROVED_POM_SUPPORT')
 
-repositories {
-    mavenCentral()
-}
+rootProject.name = 'demo-app'
 
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'findbugs'
-apply plugin: 'pmd'
-
-dependencies {
-    compileOnly 'javax:javaee-api:7.0'
-}
+include 'resource-library', 'app'
+includeBuild '..'
