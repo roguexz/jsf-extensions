@@ -105,8 +105,8 @@ Once you include this project as a dependency, then you will notice that rendere
     <script type="text/javascript" src="/resources/popper/js/popper.min.js"/>
     <script type="text/javascript" src="/javax.faces.resource/js/bootstrap.min.js.xhtml?ln=bootstrap"/>
 
-And the [RelativeResourceHandlingFilter](src/main/java/io/rogue/faces/filter/RelativeResourceHandlingFilter) will take
-care of sending the appropriate redirect to the browser.
+And the [RelativeResourceHandlingFilter](src/main/java/io/rogue/faces/filter/RelativeResourceHandlingFilter.java) will
+take care of sending the appropriate redirect to the browser.
 
 ### Maven Coordinates
 TBD
