@@ -124,5 +124,5 @@ gradle.taskGraph.whenReady {
     }
 
     // Check if the upload task has been set or not.
-    // project.signing.required = isReleaseVersion && gradle.taskGraph.hasTask('uploadArchives')
+    project.signing.required = gradle.taskGraph.hasTask('uploadArchives')
 }
