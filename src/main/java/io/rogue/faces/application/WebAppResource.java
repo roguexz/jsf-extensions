@@ -24,7 +24,7 @@ import javax.faces.context.FacesContext;
  * A <code>WebAppResource</code> represents a file that is local to the web application. This class is primarily used
  * by the resource handler for rendering web assets (CSS/IMG/JavaScript) by returning a direct access URL instead of
  * returning a JSF resource URL.
- * <p/>
+ * <br>
  * Consider the following code layout:
  * <pre>
  *     webapp/
@@ -37,18 +37,17 @@ import javax.faces.context.FacesContext;
  *                    |
  *                    |- bootstrap.min.css
  * </pre>
- * <p/>
  * Using standard JSF resource handling, the above css file will get rendered as the following URL:
- * <p/>
- * <code>/javax.faces.resource/css/bootstrap.min.css.xhtml?ln=bootstrap</code>
- * <p/>
+ * <pre>
+ *   /javax.faces.resource/css/bootstrap.min.css.xhtml?ln=bootstrap
+ * </pre>
  * This kind of a URL causes issues when the CSS file has <code>url(..)</code> references in it as they do not get
  * resolved properly.
- * <p/>
+ * <p>
  * The <code>WebAppResource</code> object tries to resolve the target URL to a webapp local location and returns that
  * when {@link #getRequestPath()} is invoked. So the same above code will end up in a url that looks like the following:
- * <p/>
  * <code>/resources/bootstrap/css/bootstrap.min.css</code>
+ * </p>
  */
 public class WebAppResource extends ResourceWrapper {
     private Resource wrapped;
