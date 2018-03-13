@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2018, Rogue.IO
  *
@@ -15,7 +14,115 @@
  * limitations under the License.
  */
 
-group = 'io.rogue'
+plugins {
+    id 'org.ajoberstar.grgit' version '2.1.1'
+    id 'org.ajoberstar.reckon' version '0.4.0'
+}
+
+group = 'io.rogue.ee'
 version = '0.0.0'
 
+repositories {
+    mavenCentral()
+}
+
 apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'findbugs'
+apply plugin: 'pmd'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+dependencies {
+    compileOnly 'javax:javaee-api:7.0'
+}
+
+/**
+ * Task for creating the Javadocs for the project.
+ */
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+/**
+ * Task for bundling the sources as an archive.
+ */
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+// Sign all the archives.
+signing {
+    sign configurations.archives
+}
+
+// Configure the upload task
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            if (ext.has('ossrhUsername')) {
+                // Specify the URLs only if the credentials are available.
+                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
+
+                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
+            }
+
+            pom.project {
+                name project.name
+                packaging 'jar'
+                description 'Better resource handling for JSF.'
+                url 'https://github.com/roguexz/jsf-extensions'
+
+                scm {
+                    connection 'scm:git:https://github.com/roguexz/jsf-extensions'
+                    developerConnection 'scm:git:https://github.com/roguexz/jsf-extensions'
+                    url 'https://github.com/roguexz/jsf-extensions'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'roguexz'
+                        name 'Harsha R'
+                        email 'roguexz@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+}
+
+gradle.taskGraph.whenReady {
+    // Determine the version number.
+    String branchName = grgit.open().branch.current.name
+    boolean isReleaseVersion = ['master'].contains(branchName)
+    if (!isReleaseVersion && !version.toUpperCase().endsWith('-SNAPSHOT')) {
+        // Update the version to indicate that we need to generate a snapshot.
+        version = version + '-SNAPSHOT'
+        logger.quiet("Setting the project version to: ${version}")
+    } else if (isReleaseVersion && version.toUpperCase().endsWith('-SNAPSHOT')) {
+        version = version.substring(0, version.length() - '-SNAPSHOT'.length())
+        logger.quiet("Setting the project version to: ${version}")
+    }
+
+    // Check if the upload task has been set or not.
+    project.signing.required = gradle.taskGraph.hasTask('uploadArchives')
+}
