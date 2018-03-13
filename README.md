@@ -1,11 +1,10 @@
 [![License](https://img.shields.io/:license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
-Table of Contents
-=================
 
 * [JSF Resource Framework Extensions](#jsf-resource-framework-extensions)
   * [About](#about)
   * [Improved Resource Handling](#improved-resource-handling)
+    * [Dependencies](#dependencies)
     * [Maven Coordinates](#maven-coordinates)
     * [Build Status](#build-status)
 
@@ -108,8 +107,21 @@ Once you include this project as a dependency, then you will notice that rendere
 And the [RelativeResourceHandlingFilter](src/main/java/io/rogue/faces/filter/RelativeResourceHandlingFilter.java) will
 take care of sending the appropriate redirect to the browser.
 
+### Dependencies
+
+* Java 8
+* JavaEE 7 - specifically JSF2
+
 ### Maven Coordinates
-TBD
+
+This module is published to OSS Central and can be access at the following coordinates:
+
+    io.rogue.ee:jsf-extensions:<version>
+    
+    Check the following link for locating the latest version.
+    https://oss.sonatype.org/#nexus-search;gav~io.rogue.ee~jsf-extensions~~~
+    
+    The very initial functioning release is version 0.0.0
 
 ### Build Status
 
